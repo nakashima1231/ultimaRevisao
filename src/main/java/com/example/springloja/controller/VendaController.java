@@ -31,7 +31,7 @@ public class VendaController {
 
     @PostMapping()
     @SecurityRequirement(name = "bearerAuth")
-    public String criar(@Valid @RequestBody Venda venda) {
+    public String criar(@Valid @RequestPart("venda") Venda venda) {
         service.salvar(venda);
         return "Venda " + venda.getId() + " criado com sucesso!";
     }
