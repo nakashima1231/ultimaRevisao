@@ -1,6 +1,7 @@
 package com.example.springloja.services;
 
 import com.example.springloja.dto.VendaDTO;
+import com.example.springloja.dto.VendedorDTO;
 import com.example.springloja.entities.Venda;
 import com.example.springloja.repositories.VendaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,10 @@ public class VendaService {
 
     public void excluir(Long id){
         repository.deleteById(id);
+    }
+
+    public VendaDTO buscarPorId(Long id){
+        return repository.findById(id).stream().map(VendaDTO::new).findFirst().orElse(null);
     }
 }
 
