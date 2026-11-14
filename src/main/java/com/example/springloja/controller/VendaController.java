@@ -1,5 +1,6 @@
 package com.example.springloja.controller;
 
+import com.example.springloja.dto.ClienteDTO;
 import com.example.springloja.dto.VendaDTO;
 import com.example.springloja.entities.Venda;
 import com.example.springloja.services.VendaService;
@@ -9,6 +10,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -29,12 +31,25 @@ public class VendaController {
         return service.listarTodos();
     }
 
+
+    @GetMapping("/{id}")
+    public ResponseEntity<VendaDTO> buscarPorId(@PathVariable Long id){
+        VendaDTO obj = service.buscarPorId(id);
+
+        if (obj != null){
+            return ResponseEntity.ok().body(obj);
+        } else{
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @PostMapping()
     @SecurityRequirement(name = "bearerAuth")
     public String criar(@Valid @RequestPart("venda") Venda venda) {
         service.salvar(venda);
         return "Venda " + venda.getId() + " criado com sucesso!";
     }
+
 
     @PutMapping(value = "/{id}")
     @SecurityRequirement(name = "bearerAuth")
