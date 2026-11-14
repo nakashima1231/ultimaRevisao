@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -17,7 +18,7 @@ public class Venda {
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @Schema(description = "data da venda", example = "01/01/2026")
-    private LocalDateTime data;
+    private LocalDate data;
 
     @Min(value = 0, message = "valor nao pode ser negativo")
     @NotNull(message = "Valor nao pode ser nulo")
@@ -48,11 +49,11 @@ public class Venda {
         this.valor = valor;
     }
 
-    public LocalDateTime getData() {
+    public LocalDate getData() {
         return data;
     }
 
-    public void setData(LocalDateTime data) {
+    public void setData(LocalDate data) {
         this.data = data;
     }
 
